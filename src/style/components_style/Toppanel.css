@@ -1,0 +1,23 @@
+
+
+.Toppanel{
+    grid-row: 1 / 2;
+    grid-column: 2 / -1;
+    
+    background-color: var(--menu-panel-background);
+
+    display: flex;
+    justify-content: space-between;
+    gap: .25em;
+    align-items: center;
+}
+
+.ThemeSwitch{
+    font-size: 1.5em;
+}
+
+.ThemeSwitch label{
+    display: flex;
+    gap: .25em;
+    align-items: center;
+}

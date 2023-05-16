@@ -1,0 +1,30 @@
+
+
+:root{
+    --button-background-color: #F3F3F3;
+    
+}
+
+#light{
+    --menu-panel-background: #F8F8F8;
+    --text-color: #000000;
+    --main-background-color: #FFF;
+    --button-shadow-color: #000000;
+    --input-box-background-color:#F2F2F2;
+    --sidepanel-footer-background-color: #F3F3F3;
+    --input-box-shadow-color: #000000;
+    --todo-box-background-color: #F8F8F8;
+    --todo-box-shadow-color: #000000;
+}
+
+#dark{
+    --menu-panel-background:#141526;
+    --text-color: #FFF;
+    --main-background-color: #1C1F3D;
+    --button-shadow-color: #F8F8F8;
+    --input-box-background-color: #1D1E29;
+    --sidepanel-footer-background-color: #1D1E29;
+    --input-box-shadow-color: #FFF;
+    --todo-box-background-color: #1D1E29;
+    --todo-box-shadow-color: #FFF;
+}

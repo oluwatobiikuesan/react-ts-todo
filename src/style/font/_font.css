@@ -1,0 +1,8 @@
+@font-face{
+    font-family: poorrich;
+    src: url("./prr.ttf"); /*poor richard font */
+}
+
+body{
+    font-family: poorrich;
+}

@@ -1,0 +1,42 @@
+
+.Sidepanel{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: repeat(12,1fr);
+    background-color: var(--menu-panel-background);
+    justify-items: center;
+
+    grid-row: 1 / -1;
+    grid-column: 1 / 2;
+    overflow-y: scroll;
+}
+
+
+.Page-title{
+    grid-column: 1 / -1;
+}
+
+.SidepanelBox{
+    grid-column: 1 / -1;
+
+    background: red;
+    width: 10px;
+    height: 10px;
+}
+
+
+
+footer{
+    grid-column: span 2;
+    grid-row: 12 / 13;
+    justify-self: stretch;
+
+    font-size: 1.25em;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: var(--sidepanel-footer-background-color);
+
+    
+}

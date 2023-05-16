@@ -1,0 +1,27 @@
+
+
+
+
+*, *::before, *::after{
+  box-sizing: border-box;
+}
+
+html,body, #root, .App{
+  height: 100%;
+}
+
+body{
+  margin: 0;
+}
+
+.App{
+  background-color: var(--main-background-color);
+  color: var(--text-color);
+
+
+  display: grid;
+  gap: 0;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(12, 1fr);
+
+}

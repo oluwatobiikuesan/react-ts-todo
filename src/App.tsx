@@ -7,6 +7,7 @@ import {FC, useState} from 'react';
 import { ThemeContext, ThemeTypes } from "./context/ThemeContext";
 import Sidepanel from "./components/sidepanel/Sidepanel";
 import Toppanel from "./components/toppanel/Toppanel";
+import Mainpanel from "./components/mainpanel/Mainpanel";
 
 
 
@@ -25,6 +26,7 @@ const App : FC = () =>{
       <main className="App" id={theme}>
         <Sidepanel />
         <Toppanel />
+        <Mainpanel />
       </main>
     </ThemeContext.Provider>
   );

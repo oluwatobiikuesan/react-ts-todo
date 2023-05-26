@@ -3,7 +3,11 @@ import {FC} from 'react';
 
 const SummaryBox : FC = () =>{
     return(
-        <div className="SummaryBox SidepanelBox"></div>
+        <div className="SummaryBox SidepanelBox">
+            <div className="BoxTitle">
+                Summary
+            </div>
+        </div>
     )
 }
 

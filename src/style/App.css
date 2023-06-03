@@ -25,3 +25,19 @@ body{
   grid-template-rows: repeat(12, 1fr);
 
 }
+
+.Button{
+  font-size: 24px;
+  border-radius: 12px;
+  cursor: pointer;
+  padding: 4px 12px;
+}
+
+.Button:active{
+  transform: scale(.97);
+}
+
+.Sidebox-button{
+  justify-self: center;
+  align-self: center;
+}

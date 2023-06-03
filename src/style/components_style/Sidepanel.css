@@ -20,12 +20,14 @@
 
 .SidepanelBox{
     grid-column: 1 / -1;
+    justify-self: stretch;
 
     background-color: var(--input-box-background-color);
     padding: 1.5em;
     padding-bottom: 24px;
     border-radius: 18px;
     box-shadow: 0px 2px 2px 0px var(--input-box-shadow-color);
+    margin: 15px;
 
     display: flex;
     flex-direction: column;
@@ -48,6 +50,7 @@
 
 .SidepanelBox .InputFields input{
     margin-top: .5em;
+    width: 75%;
 }
 
 .SidepanelBox .InputFields label, .SidepanelBox .InputFields input, .SidepanelBox .InputFields select, .SidepanelBox .InputFields textarea{
@@ -56,6 +59,7 @@
 
 .Sidepanel .InputFields textarea{
     resize: none;
+    width: 75%;
 }
 
 
@@ -71,5 +75,17 @@ footer{
     align-items: center;
     background: var(--sidepanel-footer-background-color);
 
+    position: sticky;
     
+}
+
+.Radiogroup label{
+    display: flex!important;
+    justify-content: stretch;
+    align-items: center;
+    gap: 6px;
+}
+
+.Radiogroup label input{
+    width: auto!important;
 }

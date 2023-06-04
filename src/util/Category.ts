@@ -3,7 +3,7 @@ export interface ICategory{
     label: string
 }
 
-class Category implements ICategory{
+export class Category implements ICategory{
     value: string;
     label: string;
     constructor(value: string, label: string){
@@ -12,9 +12,10 @@ class Category implements ICategory{
     }
 }
 
+export const NO_CAT = new Category("unknown", "No category");
 
-export const DEFAULT_CATEGORIES : Category[] = [
-    new Category("unknown", "No category"),
+export const DEFAULT_CATEGORIES : ICategory[] = [
+    NO_CAT,
     new Category("garden", "Garden"),
     new Category("house", "House"),
     new Category("school", "School"),

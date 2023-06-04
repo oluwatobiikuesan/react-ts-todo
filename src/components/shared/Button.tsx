@@ -1,4 +1,4 @@
-import {FC, MouseEventHandler} from 'react';
+import {FC, MouseEventHandler, FormEventHandler} from 'react';
 
 interface ButtonProps{
     text: string;

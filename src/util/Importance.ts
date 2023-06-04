@@ -7,7 +7,7 @@ export interface IImportance{
     onHoverText: string;
 }
 
-export class Importance implements IImportance{
+class Importance implements IImportance{
     name: string;
     value: number;
     displayName: string;

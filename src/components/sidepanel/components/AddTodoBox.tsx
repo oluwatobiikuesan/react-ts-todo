@@ -1,57 +1,74 @@
 
-import {FC, MouseEventHandler, useEffect, useState, useContext} from 'react';
+import {FC, MouseEventHandler,FormEventHandler, useEffect, useState, useContext} from 'react';
 import Button from '../../shared/Button';
 import Select from 'react-select';
 import { TodoContext } from '../../../context/TodoContext';
 import { IImportance, IMPORTANCE_GRADES } from '../../../util/Importance';
 import Radio from './Radio';
-import { DEFAULT_CATEGORIES } from '../../../util/Category';
+import { DEFAULT_CATEGORIES, ICategory, Category } from '../../../util/Category';
+import { Todo, TodoDate } from '../../../util/Todo';
 
-interface ICategory{
-    value: string;
-    label: string;
-}
+
 
 
 const AddTodoBox : FC = () =>{
 
     const {todoItems, setTodoItems} = useContext(TodoContext);
 
-    const [itemName, setItemName] = useState<string | null>(null);
+    const [itemName, setItemName] = useState<string>("");
 
-    const [itemDescription, setItemDescription] = useState<string | null>(null);   
+    const [itemDescription, setItemDescription] = useState<string>("");   
 
-    const [category, setCategory] = useState<ICategory | null>(DEFAULT_CATEGORIES[0]);  
+    const [category, setCategory] = useState<ICategory>(DEFAULT_CATEGORIES[0]);  
 
     const [importance, setImportance] = useState<IImportance>(IMPORTANCE_GRADES[0]);
 
-    const [date, setDate] = useState<Date>(new Date());
+    const [date, setDate] = useState<string>("");
 
-    const addItemHandler : MouseEventHandler = () =>{
-        alert("Clicked me!")
+    const [allDay, setAllDay] = useState<boolean>(false);
+
+    const [time, setTime] = useState<string>("");
+
+    const onSubmit : MouseEventHandler = () =>{
+        if(itemName.trim().length === 0){
+            return;
+        }
+
+        if(date.trim().length === 0){
+            return;
+        }
+
+        if(!allDay && time.trim().length === 0){
+            return;
+        }
+
+        setTodoItems([...todoItems, new Todo(itemName, itemDescription, category, {date: new Date(date), allDay: allDay, time: time}, importance)]);
+        
     }
 
     useEffect(()=>{
-        console.log(category?.label);
-    }, [category]);
+        for(let todo  of todoItems){
+
+        }
+    }, [todoItems])
 
     return(
         <div className="AddTodoBox SidepanelBox">
             <div className="BoxTitle">
                 Add new item
             </div>
-            <div className="InputFields">
+            <form className="InputFields">
                 <label>Item name:
-                    <input type="text" placeholder="Item name..." onChange={e => setItemName(e.target.value)}/>
+                    <input type="text" placeholder="Item name..." value={itemName} onChange={e => setItemName(e.target.value)}/>
                 </label>
                 <label>Description(optional):
-                    <textarea cols={40} rows={5} placeholder="Description" onChange={e => setItemDescription(e.target.value)}></textarea>
+                    <textarea cols={40} rows={5} value={itemDescription} placeholder="Description" onChange={e => setItemDescription(e.target.value)}></textarea>
                 </label>
                 <label>Category:
-                    <Select options={DEFAULT_CATEGORIES} onChange={e => setCategory(e)} defaultValue={DEFAULT_CATEGORIES[0]}/>
+                    <Select<ICategory> options={DEFAULT_CATEGORIES} onChange={option => setCategory(new Category(option?.value!, option?.label!))} defaultValue={DEFAULT_CATEGORIES[0]}/>
                 </label>
                 <div className="Radiogroup">
-                    <label>Importance:</label>
+                    <label title="How important this item is">Importance:</label>
                     {
                         IMPORTANCE_GRADES.map(grade =>(
                             <Radio labelText={"~ "+grade.displayName}
@@ -67,13 +84,18 @@ const AddTodoBox : FC = () =>{
                         )
                     }
                 </div>
-                <label>Finish until:
-                    <input type="date" onChange={e => setDate(new Date(e.target.value))}/>
+                <label title="Todo item finish date">Finish until:
+                    <input type="date" onChange={e => setDate(e.target.value)}/>
                 </label>
-
-            </div>
+                <label title="Todo item can be done all day or until a specified time">All day:
+                    <input type="checkbox" style={{width: "auto", cursor: "pointer"}} checked={allDay === true} onChange={()=>setAllDay(!allDay)}/>
+                </label>
+                <label className={allDay ? "Visibility-hidden" : ""}>Time:
+                    <input type="time" onChange={e => setTime(e.target.value)}/>
+                </label>
+            </form>
             
-            <Button text="Add" classes="Sidebox-button" onClick={addItemHandler}/>
+            <Button text="Add" classes="Sidebox-button" onClick={onSubmit}/>
         </div>
     )
 }

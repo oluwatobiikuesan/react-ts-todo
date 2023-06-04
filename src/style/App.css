@@ -41,3 +41,8 @@ body{
   justify-self: center;
   align-self: center;
 }
+
+
+.Visibility-hidden{
+  display: none !important;;
+}

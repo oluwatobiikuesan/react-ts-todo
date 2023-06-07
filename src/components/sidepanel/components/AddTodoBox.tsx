@@ -1,5 +1,5 @@
 
-import {FC, MouseEventHandler,FormEventHandler, useEffect, useState, useContext} from 'react';
+import React, {FC, MouseEventHandler,FormEventHandler, useEffect, useState, useContext} from 'react';
 import Button from '../../shared/Button';
 import Select from 'react-select';
 import { TodoContext } from '../../../context/TodoContext';
@@ -8,7 +8,7 @@ import Radio from './Radio';
 import { DEFAULT_CATEGORIES, ICategory, Category } from '../../../util/Category';
 import { Todo, TodoDate } from '../../../util/Todo';
 
-
+import Modal from '../../shared/modals/Modal';
 
 
 const AddTodoBox : FC = () =>{
@@ -42,15 +42,14 @@ const AddTodoBox : FC = () =>{
             return;
         }
 
-        setTodoItems([...todoItems, new Todo(itemName, itemDescription, category, {date: new Date(date), allDay: allDay, time: time}, importance)]);
+        setTodoItems([...todoItems, 
+            new Todo(itemName, itemDescription, category, new TodoDate(new Date(date), allDay, time), importance)]);
         
     }
 
     useEffect(()=>{
-        for(let todo  of todoItems){
-
-        }
-    }, [todoItems])
+        console.log(category);
+    }, [category])
 
     return(
         <div className="AddTodoBox SidepanelBox">
@@ -65,7 +64,12 @@ const AddTodoBox : FC = () =>{
                     <textarea cols={40} rows={5} value={itemDescription} placeholder="Description" onChange={e => setItemDescription(e.target.value)}></textarea>
                 </label>
                 <label>Category:
-                    <Select<ICategory> options={DEFAULT_CATEGORIES} onChange={option => setCategory(new Category(option?.value!, option?.label!))} defaultValue={DEFAULT_CATEGORIES[0]}/>
+                    <Select<ICategory> options={DEFAULT_CATEGORIES} onChange={
+                        option =>{
+                            let opt = option as React.SetStateAction<ICategory>;
+                            setCategory(opt);
+                        }
+                    } defaultValue={DEFAULT_CATEGORIES[0]}/>
                 </label>
                 <div className="Radiogroup">
                     <label title="How important this item is">Importance:</label>
@@ -96,7 +100,10 @@ const AddTodoBox : FC = () =>{
             </form>
             
             <Button text="Add" classes="Sidebox-button" onClick={onSubmit}/>
+
+            <Modal title={"Test Modal"}/>
         </div>
+        
     )
 }
 

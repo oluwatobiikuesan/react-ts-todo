@@ -9,11 +9,14 @@ import { DEFAULT_CATEGORIES, ICategory, Category } from '../../../util/Category'
 import { Todo, TodoDate } from '../../../util/Todo';
 
 import Modal from '../../shared/modals/Modal';
+import { ItemAddedModal } from '../../shared/modals/ModalTypes';
 
+import {SettingsContext} from '../../../context/SettingsContext';
 
 const AddTodoBox : FC = () =>{
 
     const {todoItems, setTodoItems} = useContext(TodoContext);
+    const {settings} = useContext(SettingsContext);
 
     const [itemName, setItemName] = useState<string>("");
 
@@ -28,6 +31,8 @@ const AddTodoBox : FC = () =>{
     const [allDay, setAllDay] = useState<boolean>(false);
 
     const [time, setTime] = useState<string>("");
+
+    const [itemAddedModalVisible, setItemAddedModalVisible] = useState<boolean>(false);
 
     const onSubmit : MouseEventHandler = () =>{
         if(itemName.trim().length === 0){
@@ -45,11 +50,11 @@ const AddTodoBox : FC = () =>{
         setTodoItems([...todoItems, 
             new Todo(itemName, itemDescription, category, new TodoDate(new Date(date), allDay, time), importance)]);
         
-    }
 
-    useEffect(()=>{
-        console.log(category);
-    }, [category])
+        if(settings.itemAddedPopUp){
+            setItemAddedModalVisible(true);
+        }
+    }
 
     return(
         <div className="AddTodoBox SidepanelBox">
@@ -101,7 +106,7 @@ const AddTodoBox : FC = () =>{
             
             <Button text="Add" classes="Sidebox-button" onClick={onSubmit}/>
 
-            <Modal title={"Test Modal"}/>
+            <Modal title={"New item!"} modelContent={<ItemAddedModal />} visible={itemAddedModalVisible} setVisible={setItemAddedModalVisible}/>
         </div>
         
     )

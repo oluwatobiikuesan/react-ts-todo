@@ -10,6 +10,8 @@ import Toppanel from "./components/toppanel/Toppanel";
 import Mainpanel from "./components/mainpanel/Mainpanel";
 
 import TodoProvider from "./context/TodoContext";
+import SettingsProvider from "./context/SettingsContext";
+
 
 
 
@@ -31,15 +33,17 @@ const App : FC = () =>{
 
   //the themecontext wraps the whole app so the theme can be toggled from the toppanel switch
   return (
-    <TodoProvider>
-      <ThemeContext.Provider value={{theme, toggleTheme}}>
-        <main className="App" id={theme}>
-          <Sidepanel />
-          <Toppanel />
-          <Mainpanel />
-        </main>
-      </ThemeContext.Provider>
-    </TodoProvider>
+    <SettingsProvider>
+      <TodoProvider>
+        <ThemeContext.Provider value={{theme, toggleTheme}}>
+          <main className="App" id={theme}>
+            <Sidepanel />
+            <Toppanel />
+            <Mainpanel />
+          </main>
+        </ThemeContext.Provider>
+      </TodoProvider>
+    </SettingsProvider>
   );
 }
 

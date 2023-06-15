@@ -1,15 +1,15 @@
 
-import React, {FC, MouseEventHandler,FormEventHandler, useEffect, useState, useContext} from 'react';
+import React, {FC, MouseEventHandler,useRef, useEffect, useState, useContext, MutableRefObject} from 'react';
 import Button from '../../shared/Button';
 import Select from 'react-select';
 import { TodoContext } from '../../../context/TodoContext';
 import { IImportance, IMPORTANCE_GRADES } from '../../../util/Importance';
 import Radio from './Radio';
-import { DEFAULT_CATEGORIES, ICategory, Category } from '../../../util/Category';
+import { DEFAULT_CATEGORIES, ICategory} from '../../../util/Category';
 import { Todo, TodoDate } from '../../../util/Todo';
 
 import Modal from '../../shared/modals/Modal';
-import { ItemAddedModal } from '../../shared/modals/ModalTypes';
+import { ItemAddedModal, ItemDetailsErrorModal } from '../../shared/modals/ModalTypes';
 
 import {SettingsContext} from '../../../context/SettingsContext';
 
@@ -27,29 +27,59 @@ const AddTodoBox : FC = () =>{
     const [importance, setImportance] = useState<IImportance>(IMPORTANCE_GRADES[0]);
 
     const [date, setDate] = useState<string>("");
+    const dateRef = useRef<HTMLInputElement>(document.createElement("input"));
 
     const [allDay, setAllDay] = useState<boolean>(false);
 
     const [time, setTime] = useState<string>("");
 
     const [itemAddedModalVisible, setItemAddedModalVisible] = useState<boolean>(false);
+    const itemAddedModalRef = useRef<HTMLDivElement>(null);
+
+    const [itemCannotBeAddedModalVisible, setItemCannotBeAddedModalVisible] = useState<boolean>(false);
+    const itemCannotBeAddedModalRef = useRef<HTMLDivElement>(null);
+
+    useEffect(()=>{
+
+        const handleClick = (e : any) :void =>{
+            if(itemCannotBeAddedModalVisible && itemCannotBeAddedModalRef.current != null && !itemCannotBeAddedModalRef.current.contains(e.target)){
+                setItemCannotBeAddedModalVisible(false);
+            }
+
+            if(itemAddedModalVisible && itemAddedModalRef.current != null && !itemAddedModalRef.current.contains(e.target)){
+                setItemAddedModalVisible(false);
+            }
+        };
+
+        document.addEventListener("mousedown", handleClick);
+
+        return ()=>{
+            document.removeEventListener("mousedown", handleClick);
+        }
+
+    }, [itemCannotBeAddedModalVisible, itemAddedModalVisible]);
+
+    const resetInputs = () : void=>{
+        setItemName("");
+        setItemDescription("");
+        dateRef.current.value = "";
+        setAllDay(false);
+        setTime("");
+        setImportance(IMPORTANCE_GRADES[0]);
+    }
 
     const onSubmit : MouseEventHandler = () =>{
-        if(itemName.trim().length === 0){
-            return;
-        }
-
-        if(date.trim().length === 0){
-            return;
-        }
-
-        if(!allDay && time.trim().length === 0){
+        if((itemName.trim().length === 0)
+        ||(date.trim().length === 0)
+        ||(!allDay && time.trim().length === 0)){
+            setItemCannotBeAddedModalVisible(true);
             return;
         }
 
         setTodoItems([...todoItems, 
             new Todo(itemName, itemDescription, category, new TodoDate(new Date(date), allDay, time), importance)]);
         
+        resetInputs();
 
         if(settings.itemAddedPopUp){
             setItemAddedModalVisible(true);
@@ -71,8 +101,7 @@ const AddTodoBox : FC = () =>{
                 <label>Category:
                     <Select<ICategory> options={DEFAULT_CATEGORIES} onChange={
                         option =>{
-                            let opt = option as React.SetStateAction<ICategory>;
-                            setCategory(opt);
+                            setCategory(option as React.SetStateAction<ICategory>);
                         }
                     } defaultValue={DEFAULT_CATEGORIES[0]}/>
                 </label>
@@ -94,19 +123,20 @@ const AddTodoBox : FC = () =>{
                     }
                 </div>
                 <label title="Todo item finish date">Finish until:
-                    <input type="date" onChange={e => setDate(e.target.value)}/>
+                    <input ref={dateRef} type="date" onChange={e => setDate(e.target.value)}/>
                 </label>
                 <label title="Todo item can be done all day or until a specified time">All day:
                     <input type="checkbox" style={{width: "auto", cursor: "pointer"}} checked={allDay === true} onChange={()=>setAllDay(!allDay)}/>
                 </label>
                 <label className={allDay ? "Visibility-hidden" : ""}>Time:
-                    <input type="time" onChange={e => setTime(e.target.value)}/>
+                    <input type="time" value={time} onChange={e => setTime(e.target.value)}/>
                 </label>
             </form>
             
             <Button text="Add" classes="Sidebox-button" onClick={onSubmit}/>
 
-            <Modal title={"New item!"} modelContent={<ItemAddedModal />} visible={itemAddedModalVisible} setVisible={setItemAddedModalVisible}/>
+            <Modal innerRef={itemAddedModalRef} title={"New item!"} modalContent={<ItemAddedModal />} visible={itemAddedModalVisible} setVisible={setItemAddedModalVisible}/>
+            <Modal innerRef={itemCannotBeAddedModalRef} title={"Wrong inputs!"} modalContent={<ItemDetailsErrorModal />} visible={itemCannotBeAddedModalVisible} setVisible={setItemCannotBeAddedModalVisible} />
         </div>
         
     )

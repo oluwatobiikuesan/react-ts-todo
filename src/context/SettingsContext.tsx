@@ -1,7 +1,7 @@
 
 
 
-import {FC, createContext, useState} from 'react';
+import {FC, createContext, useState, useEffect} from 'react';
 
 const ENABLED : true = true;
 const DISABLED : false = false;
@@ -30,7 +30,11 @@ interface ISettingsProvider{
 
 const SettingsProvider : FC<ISettingsProvider> = ({children}) =>{
 
-    const [settings, setSettings] = useState<ISettings>(DefaultSettings);
+    const [settings, setSettings] = useState<ISettings>(window.localStorage.getItem("tsx-todo-settings") ? JSON.parse(window.localStorage.getItem("tsx-todo-settings") as string): DefaultSettings);
+
+    useEffect(()=>{
+        window.localStorage.setItem("tsx-todo-settings", JSON.stringify(settings));
+    }, [settings]);
 
     return(
         <SettingsContext.Provider value={{settings, setSettings}}>

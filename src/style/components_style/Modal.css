@@ -9,6 +9,7 @@
     color: var(--text-color);
     background-color: var(--input-box-background-color);
     border-radius: 18px;
+    font-size: 1.30rem;
 }
 
 .Modal-title{

@@ -2,11 +2,8 @@
 import {FC, useState, useContext} from 'react';
 import { SettingsContext } from '../../../context/SettingsContext';
 
-interface IItemAddedModal{
-    
-}
 
-export const ItemAddedModal : FC<IItemAddedModal> = ()=>{
+export const ItemAddedModal : FC = ()=>{
 
     const [checked, setChecked] = useState<boolean>(false);
     const {settings, setSettings} = useContext(SettingsContext);
@@ -25,4 +22,26 @@ export const ItemAddedModal : FC<IItemAddedModal> = ()=>{
         </div>
     )
 };
+
+export const ItemDetailsErrorModal :FC = () =>{
+    return(
+        <div className="Modal-content">
+            <h2>Check your inputs!</h2>
+            <h3>Check the followings: </h3>
+            <ol>
+                <li>Item name is present</li>
+                <li>The date must be today, or after today</li>
+                <li>If it is not all day, provide a time</li>
+            </ol>
+        </div>
+    );
+};
+
+export const AllTodoRemovedModal :FC = () =>{
+    return(
+        <div className="Modal-content">
+            <h2>Your todo list is cleared</h2>
+        </div>
+    )
+}
 

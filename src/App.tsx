@@ -17,12 +17,7 @@ import SettingsProvider from "./context/SettingsContext";
 
 const App : FC = () =>{
 
-
-
-
-  //for dark and light mode
   const [theme, setTheme]  = useState<ThemeTypes>(window.localStorage.getItem("todo-tsx-preferred-theme") ? window.localStorage.getItem("todo-tsx-preferred-theme") as ThemeTypes : "light");
-  //this function was created so the state doesn't need to be updated from the switch directly, easier to deal with
   const toggleTheme = () : void =>{
     setTheme(theme === "light" ? "dark" : "light");
   };
@@ -31,7 +26,6 @@ const App : FC = () =>{
     window.localStorage.setItem("todo-tsx-preferred-theme", theme);
   }, [theme]);
 
-  //the themecontext wraps the whole app so the theme can be toggled from the toppanel switch
   return (
     <SettingsProvider>
       <TodoProvider>

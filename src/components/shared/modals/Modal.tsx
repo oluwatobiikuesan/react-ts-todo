@@ -1,5 +1,5 @@
 
-import {FC, useContext, useEffect, useState} from 'react';
+import {FC, useContext} from 'react';
 import ReactDOM from 'react-dom';
 
 import "../../../style/components_style/Modal.css";
@@ -10,20 +10,21 @@ interface IModal{
     title: string;
     visible: boolean;
     setVisible: React.Dispatch<React.SetStateAction<boolean>>;
-    modelContent: React.ReactNode;
+    modalContent: React.ReactNode;
+    innerRef: React.RefObject<HTMLDivElement>;
 }
 
 
-const Modal : FC<IModal> = ({title, visible, setVisible, modelContent}) => {
+const Modal : FC<IModal> = ({title, visible, setVisible, modalContent, innerRef}) => {
 
     const {theme} = useContext(ThemeContext);
-    
+
 
     return ReactDOM.createPortal(
-        <div className={visible ? `Modal` : "Hide-modal"} id={theme}>
+        <div className={visible ? `Modal` : "Hide-modal"} id={theme} ref={innerRef}>
             <Button classes="Close-modal-button" text="Close" onClick={()=>{setVisible(false)}}></Button>
             <h1 className="Modal-title">{title}</h1>
-            {modelContent}
+            {modalContent}
         </div>,
     document.getElementById("modal-container") as Element);
 };

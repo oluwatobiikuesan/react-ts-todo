@@ -20,3 +20,8 @@
     gap: .25em;
     align-items: center;
 }
+
+.Todo-visibility-controller{
+    display: flex;
+    gap: 12px;
+}

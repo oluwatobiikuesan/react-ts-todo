@@ -1,6 +1,7 @@
 
 import { IImportance } from "./Importance";
 import { ICategory } from "./Category";
+import { generateKey } from "./Key";
 
 
 
@@ -12,26 +13,32 @@ export interface ITodoDate{
 }
 
 export interface ITodo{
+    id: number;
     name: string;
     description?: string;
     category: ICategory;
     date: ITodoDate;
     importance: IImportance;
+    isCompleted: boolean;
 }
 
 
 export class Todo implements ITodo{
+    id: number;
     name: string;
     description: string;
     category: ICategory;
     date: ITodoDate;
     importance: IImportance;
-    constructor(name: string, description: string, category: ICategory, date: ITodoDate, importance: IImportance) {
+    isCompleted: boolean;
+    constructor(name: string, description: string, category: ICategory, date: ITodoDate, importance: IImportance, isCompleted: boolean) {
+        this.id = generateKey();
         this.name = name;
         this.description = description;
         this.category = category;
         this.date = date;
         this.importance = importance;
+        this.isCompleted = isCompleted;
     }
 }
 

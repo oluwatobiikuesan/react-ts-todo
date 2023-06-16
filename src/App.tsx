@@ -11,8 +11,7 @@ import Mainpanel from "./components/mainpanel/Mainpanel";
 
 import TodoProvider from "./context/TodoContext";
 import SettingsProvider from "./context/SettingsContext";
-
-
+import TodoSelectorProvider from "./context/TodoSelectorContext";
 
 
 const App : FC = () =>{
@@ -29,6 +28,7 @@ const App : FC = () =>{
   return (
     <SettingsProvider>
       <TodoProvider>
+        <TodoSelectorProvider>
         <ThemeContext.Provider value={{theme, toggleTheme}}>
           <main className="App" id={theme}>
             <Sidepanel />
@@ -36,9 +36,17 @@ const App : FC = () =>{
             <Mainpanel />
           </main>
         </ThemeContext.Provider>
+        </TodoSelectorProvider>
       </TodoProvider>
     </SettingsProvider>
   );
 }
 
 export default App;
+
+
+/**
+ * 
+ * 
+ * 
+ */

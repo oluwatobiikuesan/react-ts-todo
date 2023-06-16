@@ -1,0 +1,6 @@
+
+
+Planned changes
+
+Switch to change between completed / not completed todos
+Grouping for todo items

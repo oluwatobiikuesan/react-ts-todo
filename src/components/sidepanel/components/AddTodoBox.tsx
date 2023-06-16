@@ -77,7 +77,7 @@ const AddTodoBox : FC = () =>{
         }
 
         setTodoItems([...todoItems, 
-            new Todo(itemName, itemDescription, category, new TodoDate(new Date(date), allDay, time), importance)]);
+            new Todo(itemName, itemDescription, category, new TodoDate(new Date(date), allDay, time), importance, false)]);
         
         resetInputs();
 
@@ -85,6 +85,15 @@ const AddTodoBox : FC = () =>{
             setItemAddedModalVisible(true);
         }
     }
+
+    const fillInput = () :void =>{
+        setItemName("Test todo item");
+        setItemDescription("This is a test todo item");
+        dateRef.current.value="2023-07-12";
+        setDate(dateRef.current.value);
+        setAllDay(false);
+        setTime("12:23");
+    };
 
     return(
         <div className="AddTodoBox SidepanelBox">
@@ -134,6 +143,7 @@ const AddTodoBox : FC = () =>{
             </form>
             
             <Button text="Add" classes="Sidebox-button" onClick={onSubmit}/>
+            {settings.adminTools ? <Button text="Fill" classes="Sidebox-button" onClick={fillInput} />: null}
 
             <Modal innerRef={itemAddedModalRef} title={"New item!"} modalContent={<ItemAddedModal />} visible={itemAddedModalVisible} setVisible={setItemAddedModalVisible}/>
             <Modal innerRef={itemCannotBeAddedModalRef} title={"Wrong inputs!"} modalContent={<ItemDetailsErrorModal />} visible={itemCannotBeAddedModalVisible} setVisible={setItemCannotBeAddedModalVisible} />

@@ -8,6 +8,7 @@ import { TodoContext } from "../../context/TodoContext";
 import Button from "../shared/Button";
 import Modal from "../shared/modals/Modal";
 import { AllTodoRemovedModal } from "../shared/modals/ModalTypes";
+import TodoVisibilityController from "./components/TodoVisibilityController";
 
 
 const Toppanel : FC = () =>{
@@ -45,8 +46,10 @@ const Toppanel : FC = () =>{
                     <ReactSwitch checked={theme === "dark"} onChange={toggleTheme}/>
                 </label>
             </div>
+            
             <Button text={"Clear all todo"} onClick={onDeleteItems}></Button>
             <Button text={"Save to server"} onClick={()=>alert("Not available...")}></Button>
+            <TodoVisibilityController/>
             <Modal title="All item has been removed!" visible={modalVisible} setVisible={setModalVisible} modalContent={<AllTodoRemovedModal/>} innerRef={modalRef}/>
         </div>
     )

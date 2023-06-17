@@ -12,6 +12,7 @@
     grid-template-rows: repeat(3, 1fr);
 
     padding: 12px;
+    overflow: auto;
 }
 
 .Todo-item-box{
@@ -20,8 +21,38 @@
     padding: 12px;
     background-color: var(--todo-box-background-color);
     border-radius: 18px;
+    font-size: 1.1em;
 
     display: flex;
     flex-direction: column;
     align-items: center;
+    gap: 24px;
+}
+
+.Todo-name{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.Todo-importance{
+    width: 60px;
+    height: 50%;
+}
+
+.Todo-item-box h1, .Todo-item-box h2, .Todo-item-box h3, .Todo-item-box p{
+    margin: 0;
+}
+
+.No-todo-heading{
+    grid-column: 1 / -1;
+    grid-row: 1 / -1;
+    align-self: center;
+    justify-self: center;
+}
+
+.On-delete{
+    background-color: red;
 }

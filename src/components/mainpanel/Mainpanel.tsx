@@ -13,11 +13,13 @@ const Mainpanel : FC = () =>{
     return(
         <div className="Mainpanel">
                 {
-                    todoItems.slice(counter-9,counter).map((item) =>{
+                    todoItems.length > 0 ? todoItems.slice(counter-9,counter).map((item) =>{
                         return(
                             <TodoBox key={item.id} todoItem={item}/>
                         )
-                    })
+                    }) : (
+                        <h1 className="No-todo-heading">You got nothing to do here!</h1>
+                    )
                 }
         </div>
     )

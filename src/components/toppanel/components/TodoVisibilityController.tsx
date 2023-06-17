@@ -41,7 +41,7 @@ const TodoVisibilityController : FC = ()=>{
     return(
         <div className="Todo-visibility-controller">
             <Button text="Prev" onClick={()=>{setPreviousPage()}} />
-            <span>{currentPage} / {maxPage}</span>
+            <span className="Page-counter">{currentPage} / {maxPage}</span>
             <Button text="Next" onClick={()=>{setNextPage()}} />
         </div>
     )

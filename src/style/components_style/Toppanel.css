@@ -24,4 +24,9 @@
 .Todo-visibility-controller{
     display: flex;
     gap: 12px;
+    align-items: center;
+}
+
+.Page-counter{
+    font-size: 1.15em;
 }

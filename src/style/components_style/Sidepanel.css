@@ -1,4 +1,7 @@
 
+
+
+
 .Sidepanel{
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -12,6 +15,19 @@
 
     gap: 2em;
 }
+
+@media(max-width: 1000px){
+    .Sidepanel{
+        display: none;
+    }
+}
+
+@media(max-width: 1000px){
+    .Sidepanel-visible{
+        display: grid;
+    }
+}
+
 
 
 .Page-title{
@@ -88,4 +104,20 @@ footer{
 
 .Radiogroup label input{
     width: auto!important;
+}
+
+
+.css-b62m3t-container{
+    color: black;
+}
+
+.Category-selector{
+    display: grid!important;
+    grid-template-columns: repeat(4, 1fr);;
+}
+.Category-selector span{
+    grid-column: span 4;
+}
+.Category-selector .css-b62m3t-container{
+    grid-column: span 3;
 }

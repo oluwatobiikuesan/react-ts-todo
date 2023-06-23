@@ -28,7 +28,7 @@ const TodoBox : FC<ITodoBox> = ({todoItem}) =>{
                 todoItem.description?.trim().length === 0 ? null  : <p className="Todo-description">{todoItem.description}</p>
             }
             <h3 className="Todo-category">{todoItem.category.label}</h3>
-            <h3 className="Todo-due-date">Due until: {todoItem.date.date.toDateString()}</h3>
+            <h3 className="Todo-date">Date: {todoItem.date.date}</h3>
             <h3 className="Todo-all-day">All day: {todoItem.date.allDay ? "Yes" : "No"} </h3>
             {
                 todoItem.date.allDay === false ? <h3>Time: {todoItem.date.time}</h3> : null

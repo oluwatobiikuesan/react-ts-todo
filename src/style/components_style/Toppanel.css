@@ -9,6 +9,14 @@
     display: flex;
     gap: .5em;
     align-items: center;
+    flex-wrap: wrap;
+    padding: 12px;
+}
+
+@media(max-width: 1000px){
+    .Toppanel{
+        grid-column: 1 / -1;
+    }
 }
 
 .ThemeSwitch{

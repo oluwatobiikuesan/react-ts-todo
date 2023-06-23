@@ -5,24 +5,26 @@ import Select from 'react-select';
 import { TodoContext } from '../../../context/TodoContext';
 import { IImportance, IMPORTANCE_GRADES } from '../../../util/Importance';
 import Radio from './Radio';
-import { DEFAULT_CATEGORIES, ICategory} from '../../../util/Category';
+import { ICategory} from '../../../util/Category';
 import { Todo, TodoDate } from '../../../util/Todo';
 
 import Modal from '../../shared/modals/Modal';
-import { ItemAddedModal, ItemDetailsErrorModal } from '../../shared/modals/ModalTypes';
+import { ItemAddedModal, ItemDetailsErrorModal, ManageCategoriesModal } from '../../shared/modals/ModalTypes';
 
 import {SettingsContext} from '../../../context/SettingsContext';
+import { CategoryContext } from '../../../context/CategoryContext';
 
 const AddTodoBox : FC = () =>{
 
     const {todoItems, setTodoItems} = useContext(TodoContext);
     const {settings} = useContext(SettingsContext);
+    const {categories} = useContext(CategoryContext);
 
     const [itemName, setItemName] = useState<string>("");
 
     const [itemDescription, setItemDescription] = useState<string>("");   
 
-    const [category, setCategory] = useState<ICategory>(DEFAULT_CATEGORIES[0]);  
+    const [category, setCategory] = useState<ICategory>(categories[0]);  
 
     const [importance, setImportance] = useState<IImportance>(IMPORTANCE_GRADES[0]);
 
@@ -39,15 +41,22 @@ const AddTodoBox : FC = () =>{
     const [itemCannotBeAddedModalVisible, setItemCannotBeAddedModalVisible] = useState<boolean>(false);
     const itemCannotBeAddedModalRef = useRef<HTMLDivElement>(null);
 
+    const [manageCategoriesModalVisible, setManageCategoriesModalVisible] = useState<boolean>(false);
+    const manageCategoriesModalRef = useRef<HTMLDivElement>(null);
+
     useEffect(()=>{
 
-        const handleClick = (e : any) :void =>{
+        const handleClick = (e : any) : void =>{
             if(itemCannotBeAddedModalVisible && itemCannotBeAddedModalRef.current != null && !itemCannotBeAddedModalRef.current.contains(e.target)){
                 setItemCannotBeAddedModalVisible(false);
             }
 
             if(itemAddedModalVisible && itemAddedModalRef.current != null && !itemAddedModalRef.current.contains(e.target)){
                 setItemAddedModalVisible(false);
+            }
+
+            if(manageCategoriesModalVisible && manageCategoriesModalRef.current != null && !manageCategoriesModalRef.current.contains(e.target)){
+                setManageCategoriesModalVisible(false);
             }
         };
 
@@ -57,7 +66,7 @@ const AddTodoBox : FC = () =>{
             document.removeEventListener("mousedown", handleClick);
         }
 
-    }, [itemCannotBeAddedModalVisible, itemAddedModalVisible]);
+    }, [itemCannotBeAddedModalVisible, itemAddedModalVisible, manageCategoriesModalVisible]);
 
     const resetInputs = () : void=>{
         setItemName("");
@@ -71,13 +80,14 @@ const AddTodoBox : FC = () =>{
     const onSubmit : MouseEventHandler = () =>{
         if((itemName.trim().length === 0)
         ||(date.trim().length === 0)
-        ||(!allDay && time.trim().length === 0)){
+        ||(!allDay && time.trim().length === 0)
+        || (new Date(date).setHours(0,0,0,0) < new Date().setHours(0,0,0,0))){
             setItemCannotBeAddedModalVisible(true);
             return;
         }
 
         setTodoItems([...todoItems, 
-            new Todo(itemName, itemDescription, category, new TodoDate(new Date(date), allDay, time), importance, false)]);
+            new Todo(itemName, itemDescription, category, new TodoDate(date, allDay, time), importance, false)]);
         
         resetInputs();
 
@@ -100,19 +110,20 @@ const AddTodoBox : FC = () =>{
             <div className="BoxTitle">
                 Add new item
             </div>
-            <form className="InputFields">
+            <form className="InputFields" onSubmit={e=>e.preventDefault()}>
                 <label>Item name:
                     <input type="text" placeholder="Item name..." value={itemName} onChange={e => setItemName(e.target.value)}/>
                 </label>
                 <label>Description(optional):
                     <textarea cols={40} rows={5} value={itemDescription} placeholder="Description" onChange={e => setItemDescription(e.target.value)}></textarea>
                 </label>
-                <label>Category:
-                    <Select<ICategory> options={DEFAULT_CATEGORIES} onChange={
+                <label className="Category-selector"><span>Category:</span>
+                    <Select<ICategory> options={categories} onChange={
                         option =>{
                             setCategory(option as React.SetStateAction<ICategory>);
                         }
-                    } defaultValue={DEFAULT_CATEGORIES[0]}/>
+                    } defaultValue={categories[0]}/>
+                    <button style={{cursor: "pointer"}} onClick={()=>{setManageCategoriesModalVisible(true)}}>Manage</button>
                 </label>
                 <div className="Radiogroup">
                     <label title="How important this item is">Importance:</label>
@@ -147,6 +158,7 @@ const AddTodoBox : FC = () =>{
 
             <Modal innerRef={itemAddedModalRef} title={"New item!"} modalContent={<ItemAddedModal />} visible={itemAddedModalVisible} setVisible={setItemAddedModalVisible}/>
             <Modal innerRef={itemCannotBeAddedModalRef} title={"Wrong inputs!"} modalContent={<ItemDetailsErrorModal />} visible={itemCannotBeAddedModalVisible} setVisible={setItemCannotBeAddedModalVisible} />
+            <Modal innerRef={manageCategoriesModalRef} title={"Manage categories"} modalContent={<ManageCategoriesModal/>} visible={manageCategoriesModalVisible} setVisible={setManageCategoriesModalVisible} />
         </div>
         
     )

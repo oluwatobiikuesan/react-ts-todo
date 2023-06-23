@@ -39,8 +39,13 @@ const Toppanel : FC = () =>{
 
     }, [modalVisible]);
 
+    const openSidepanel = () : void =>{
+        
+    }
+
     return(
         <div className="Toppanel">
+            <Button text="Open" onClick={openSidepanel}/>
             <div className="ThemeSwitch">
                 <label>Toggle theme:
                     <ReactSwitch checked={theme === "dark"} onChange={toggleTheme}/>

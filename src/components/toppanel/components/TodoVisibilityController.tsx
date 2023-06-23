@@ -24,7 +24,8 @@ const TodoVisibilityController : FC = ()=>{
     };
 
     const setNextPage = () :void =>{
-        if(currentPage == maxPage){
+
+        if(currentPage === maxPage || maxPage === 0){
             return;
         }
 

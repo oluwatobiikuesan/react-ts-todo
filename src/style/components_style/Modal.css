@@ -27,3 +27,12 @@
 .Hide-modal{
     display: none;
 }
+
+.Add-cat-lab{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+}
+

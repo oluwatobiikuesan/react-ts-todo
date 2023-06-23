@@ -1,7 +1,10 @@
 
 import {FC, useState, useContext} from 'react';
 import { SettingsContext } from '../../../context/SettingsContext';
-
+import { CategoryContext } from '../../../context/CategoryContext';
+import Button from '../Button';
+import { generateKey } from '../../../util/Key';
+import { ICategory } from '../../../util/Category';
 
 export const ItemAddedModal : FC = ()=>{
 
@@ -42,6 +45,45 @@ export const AllTodoRemovedModal :FC = () =>{
         <div className="Modal-content">
             <h2>Your todo list is cleared</h2>
         </div>
-    )
-}
+    );
+};
 
+export const ManageCategoriesModal :FC = () =>{
+
+
+    const [catName, setCatName] = useState<string>("");
+    const {categories, setCategories} = useContext(CategoryContext);
+
+    const addCategory = () :void=>{
+        if(catName.trim().length === 0){
+            alert("Category name cannot be empty!");
+            return;
+        }
+
+        setCategories([...categories, {id: generateKey(), value: catName, label: catName}])
+    };
+
+    const removeCategory = (category: ICategory) : void=>{
+        setCategories(prev => prev.filter(current => current.id !== category.id));
+    }
+
+    return(
+        <div className="Modal-content">
+            <label className="Add-cat-lab">Add new category: 
+                <input type="text" placeholder="Category name" value={catName} onChange={e => setCatName(e.target.value)}/>
+                <Button text="Add" onClick={addCategory}/>
+            </label>
+            <h2>Categories: </h2>
+            <ul className="Categories-list">
+            {
+                categories.slice(1, categories.length).map(category => (
+                    <li key={category.id}>{category.label}
+                        <Button text="Remove" onClick={()=>{removeCategory(category)}}/>
+                    </li>
+                    
+                ))
+            }
+            </ul>
+        </div>
+    );
+};

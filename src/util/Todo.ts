@@ -7,7 +7,7 @@ import { generateKey } from "./Key";
 
 
 export interface ITodoDate{
-    date: Date;
+    date: string;
     allDay: boolean;
     time?: string;
 }
@@ -43,10 +43,10 @@ export class Todo implements ITodo{
 }
 
 export class TodoDate implements ITodoDate{
-    date: Date;
+    date: string;
     allDay: boolean;
     time?: string;
-    constructor(date: Date, allDay: boolean, time?: string) {
+    constructor(date: string, allDay: boolean, time?: string) {
         this.date = date;
         this.allDay = allDay;
         this.time = time;

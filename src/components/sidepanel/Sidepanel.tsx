@@ -6,7 +6,12 @@ import FilterBox from './components/FilterBox';
 import SummaryBox from './components/SummaryBox';
 import Footer from './components/Footer';
 
-const Sidepanel : FC = () =>{
+
+interface ISidePanel{
+    isVisible: boolean;
+}
+
+const Sidepanel : FC<ISidePanel> = ({isVisible}) =>{
 
     //this panel covers the left side of the page
     // and contains all important input boxes:
@@ -16,7 +21,7 @@ const Sidepanel : FC = () =>{
 
 
     return(
-        <div className="Sidepanel">
+        <div className={isVisible ? "Sidepanel Sidepanel-visible" : "Sidepanel"}>
             <h1 className="Page-title">Todo app</h1>
             <AddTodoBox />
             <FilterBox />

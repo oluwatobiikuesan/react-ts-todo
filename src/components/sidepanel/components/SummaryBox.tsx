@@ -4,9 +4,9 @@ import {FC} from 'react';
 const SummaryBox : FC = () =>{
     return(
         <div className="SummaryBox SidepanelBox">
-            <div className="BoxTitle">
+            <h2 className="BoxTitle">
                 Summary
-            </div>
+            </h2>
         </div>
     )
 }

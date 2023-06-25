@@ -9,9 +9,10 @@ import Footer from './components/Footer';
 
 interface ISidePanel{
     isVisible: boolean;
+    setVisible: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const Sidepanel : FC<ISidePanel> = ({isVisible}) =>{
+const Sidepanel : FC<ISidePanel> = ({isVisible, setVisible}) =>{
 
     //this panel covers the left side of the page
     // and contains all important input boxes:
@@ -22,7 +23,10 @@ const Sidepanel : FC<ISidePanel> = ({isVisible}) =>{
 
     return(
         <div className={isVisible ? "Sidepanel Sidepanel-visible" : "Sidepanel"}>
-            <h1 className="Page-title">Todo app</h1>
+            <h1 className="Page-title">Todo app
+                <button className="Close-sidepanel-button" onClick={()=>{setVisible(false);}}>Close
+            </button></h1>
+            
             <AddTodoBox />
             <FilterBox />
             <SummaryBox />

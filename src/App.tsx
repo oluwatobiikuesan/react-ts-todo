@@ -20,7 +20,7 @@ const App : FC = () =>{
   const [theme, setTheme]  = useState<ThemeTypes>(window.localStorage.getItem("todo-tsx-preferred-theme") ? window.localStorage.getItem("todo-tsx-preferred-theme") as ThemeTypes : "light");
 
   //online small view
-  const [isSidepanelVisible, setSidepanelVisible] = useState<boolean>(true);
+  const [isSidepanelVisible, setSidepanelVisible] = useState<boolean>(false);
 
   const toggleTheme = () : void =>{
     setTheme(theme === "light" ? "dark" : "light");
@@ -39,8 +39,8 @@ const App : FC = () =>{
         <TodoSelectorProvider>
         <ThemeContext.Provider value={{theme, toggleTheme}}>
           <main className="App" id={theme}>
-            <Sidepanel isVisible={isSidepanelVisible}/>
-            <Toppanel />
+            <Sidepanel isVisible={isSidepanelVisible} setVisible={setSidepanelVisible}/>
+            <Toppanel isSidePanelVisible={isSidepanelVisible} setSidePanelVisible={setSidepanelVisible}/>
             <Mainpanel />
           </main>
         </ThemeContext.Provider>

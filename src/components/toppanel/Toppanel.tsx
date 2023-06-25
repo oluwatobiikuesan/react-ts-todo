@@ -10,8 +10,12 @@ import Modal from "../shared/modals/Modal";
 import { AllTodoRemovedModal } from "../shared/modals/ModalTypes";
 import TodoVisibilityController from "./components/TodoVisibilityController";
 
+interface IToppanel{
+    isSidePanelVisible: boolean;
+    setSidePanelVisible: React.Dispatch<React.SetStateAction<boolean>>;
+}
 
-const Toppanel : FC = () =>{
+const Toppanel : FC<IToppanel> = ({isSidePanelVisible, setSidePanelVisible}) =>{
 
     const {theme, toggleTheme} = useContext(ThemeContext);
     const {setTodoItems} = useContext(TodoContext);
@@ -39,13 +43,13 @@ const Toppanel : FC = () =>{
 
     }, [modalVisible]);
 
-    const openSidepanel = () : void =>{
-        
+    const toggleSidepanel = () : void =>{
+        setSidePanelVisible(!isSidePanelVisible);
     }
 
     return(
         <div className="Toppanel">
-            <Button text="Open" onClick={openSidepanel}/>
+            <Button text="Sidemenu" onClick={toggleSidepanel}/>
             <div className="ThemeSwitch">
                 <label>Toggle theme:
                     <ReactSwitch checked={theme === "dark"} onChange={toggleTheme}/>

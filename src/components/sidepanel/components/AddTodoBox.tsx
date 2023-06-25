@@ -107,9 +107,9 @@ const AddTodoBox : FC = () =>{
 
     return(
         <div className="AddTodoBox SidepanelBox">
-            <div className="BoxTitle">
+            <h2 className="BoxTitle">
                 Add new item
-            </div>
+            </h2>
             <form className="InputFields" onSubmit={e=>e.preventDefault()}>
                 <label>Item name:
                     <input type="text" placeholder="Item name..." value={itemName} onChange={e => setItemName(e.target.value)}/>

@@ -4,9 +4,9 @@ import {FC} from 'react';
 const FilterBox : FC = () =>{
     return(
         <div className="FilterBox SidepanelBox">
-            <div className="BoxTitle">
+            <h2 className="BoxTitle">
                 Filter
-            </div>
+            </h2>
         </div>
     )
 }

@@ -16,10 +16,10 @@ interface ISettings{
 
 //if default settings are modified, the version number must be changed in order to force recapture
 export let DefaultSettings: ISettings = {
-    version: "110",
+    version: "111",
     itemAddedPopUp: ENABLED,
     itemDeletedPopUp: ENABLED,
-    adminTools: ENABLED
+    adminTools: DISABLED
 };
 
 

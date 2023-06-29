@@ -49,7 +49,7 @@ const Toppanel : FC<IToppanel> = ({isSidePanelVisible, setSidePanelVisible}) =>{
 
     return(
         <div className="Toppanel">
-            <Button text="Sidemenu" onClick={toggleSidepanel}/>
+            <Button classes={"Sidemenu-button"} text="Sidemenu" onClick={toggleSidepanel}/>
             <div className="ThemeSwitch">
                 <label>Toggle theme:
                     <ReactSwitch checked={theme === "dark"} onChange={toggleTheme}/>

@@ -38,3 +38,9 @@
 .Page-counter{
     font-size: 1.15em;
 }
+
+@media(min-width: 1000px){
+    .Sidemenu-button{
+        display: none;
+    }
+}

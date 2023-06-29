@@ -6,14 +6,15 @@ interface ICounter{
     setCounter: React.Dispatch<React.SetStateAction<number>>;
 }
 
+export const DEFAULT_COUNTER_DELTA : number = 9;
 
-export const TodoSelectorContext = createContext<ICounter>({counter: 9, setCounter: ()=>{}} as ICounter);
+export const TodoSelectorContext = createContext<ICounter>({counter: DEFAULT_COUNTER_DELTA, setCounter: ()=>{}} as ICounter);
 
 interface ITodoCounterProvider {
     children: React.ReactNode;
 }
 
-export const DEFAULT_COUNTER_DELTA : number = 9;
+
 
 const TodoSelectorProvider : FC<ITodoCounterProvider> = ({children})=>{
 

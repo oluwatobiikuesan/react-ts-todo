@@ -24,16 +24,16 @@ const AddTodoBox : FC = () =>{
 
     const [itemDescription, setItemDescription] = useState<string>("");   
 
-    const [category, setCategory] = useState<ICategory>(categories[0]);  
+    const [itemCategory, setItemCategory] = useState<ICategory>(categories[0]);  
 
-    const [importance, setImportance] = useState<IImportance>(IMPORTANCE_GRADES[0]);
+    const [itemImportance, setItemImportance] = useState<IImportance>(IMPORTANCE_GRADES[0]);
 
-    const [date, setDate] = useState<string>("");
+    const [itemDate, setItemDate] = useState<string>("");
     const dateRef = useRef<HTMLInputElement>(document.createElement("input"));
 
     const [allDay, setAllDay] = useState<boolean>(false);
 
-    const [time, setTime] = useState<string>("");
+    const [itemTime, setItemTime] = useState<string>("");
 
     const [itemAddedModalVisible, setItemAddedModalVisible] = useState<boolean>(false);
     const itemAddedModalRef = useRef<HTMLDivElement>(null);
@@ -73,21 +73,21 @@ const AddTodoBox : FC = () =>{
         setItemDescription("");
         dateRef.current.value = "";
         setAllDay(false);
-        setTime("");
-        setImportance(IMPORTANCE_GRADES[0]);
+        setItemTime("");
+        setItemImportance(IMPORTANCE_GRADES[0]);
     }
 
     const onSubmit : MouseEventHandler = () =>{
         if((itemName.trim().length === 0)
-        ||(date.trim().length === 0)
-        ||(!allDay && time.trim().length === 0)
-        || (new Date(date).setHours(0,0,0,0) < new Date().setHours(0,0,0,0))){
+        ||(itemDate.trim().length === 0)
+        ||(!allDay && itemTime.trim().length === 0)
+        || (new Date(itemDate).setHours(0,0,0,0) < new Date().setHours(0,0,0,0))){
             setItemCannotBeAddedModalVisible(true);
             return;
         }
 
         setTodoItems([...todoItems, 
-            new Todo(itemName, itemDescription, category, new TodoDate(date, allDay, time), importance, false)]);
+            new Todo(itemName, itemDescription, itemCategory, new TodoDate(itemDate, allDay, itemTime), itemImportance, false)]);
         
         resetInputs();
 
@@ -100,9 +100,9 @@ const AddTodoBox : FC = () =>{
         setItemName("Test todo item");
         setItemDescription("This is a test todo item");
         dateRef.current.value="2023-07-12";
-        setDate(dateRef.current.value);
+        setItemDate(dateRef.current.value);
         setAllDay(false);
-        setTime("12:23");
+        setItemTime("12:23");
     };
 
     return(
@@ -120,7 +120,7 @@ const AddTodoBox : FC = () =>{
                 <label className="Category-selector"><span>Category:</span>
                     <Select<ICategory> options={categories} onChange={
                         option =>{
-                            setCategory(option as React.SetStateAction<ICategory>);
+                            setItemCategory(option as React.SetStateAction<ICategory>);
                         }
                     } defaultValue={categories[0]}/>
                     <button style={{cursor: "pointer"}} onClick={()=>{setManageCategoriesModalVisible(true)}}>Manage</button>
@@ -133,8 +133,8 @@ const AddTodoBox : FC = () =>{
                             name={"importance-radio"} 
                             style={{accentColor: grade.accentColor}}
                             value={JSON.stringify(grade)} 
-                            checked={importance.value === grade.value} 
-                            onChange={e => {setImportance(JSON.parse(e.target.value))}}
+                            checked={itemImportance.value === grade.value} 
+                            onChange={e => {setItemImportance(JSON.parse(e.target.value))}}
                             onHoverText={grade.onHoverText}
                             />
                         )
@@ -143,13 +143,13 @@ const AddTodoBox : FC = () =>{
                     }
                 </div>
                 <label title="Todo item finish date">Finish until:
-                    <input ref={dateRef} type="date" onChange={e => setDate(e.target.value)}/>
+                    <input ref={dateRef} type="date" onChange={e => setItemDate(e.target.value)}/>
                 </label>
                 <label title="Todo item can be done all day or until a specified time">All day:
                     <input type="checkbox" style={{width: "auto", cursor: "pointer"}} checked={allDay === true} onChange={()=>setAllDay(!allDay)}/>
                 </label>
                 <label className={allDay ? "Visibility-hidden" : ""}>Time:
-                    <input type="time" value={time} onChange={e => setTime(e.target.value)}/>
+                    <input type="time" value={itemTime} onChange={e => setItemTime(e.target.value)}/>
                 </label>
             </form>
             

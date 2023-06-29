@@ -13,13 +13,14 @@ import TodoProvider from "./context/TodoContext";
 import SettingsProvider from "./context/SettingsContext";
 import TodoSelectorProvider from "./context/TodoSelectorContext";
 import CategoryContextProvider from "./context/CategoryContext";
+import FilterProvider from "./context/FilterContext";
 
 
 const App : FC = () =>{
 
   const [theme, setTheme]  = useState<ThemeTypes>(window.localStorage.getItem("todo-tsx-preferred-theme") ? window.localStorage.getItem("todo-tsx-preferred-theme") as ThemeTypes : "light");
 
-  //online small view
+  //only small view
   const [isSidepanelVisible, setSidepanelVisible] = useState<boolean>(false);
 
   const toggleTheme = () : void =>{
@@ -35,6 +36,7 @@ const App : FC = () =>{
 
     <SettingsProvider>
       <TodoProvider>
+        <FilterProvider>
         <CategoryContextProvider>
         <TodoSelectorProvider>
         <ThemeContext.Provider value={{theme, toggleTheme}}>
@@ -46,6 +48,7 @@ const App : FC = () =>{
         </ThemeContext.Provider>
         </TodoSelectorProvider>
         </CategoryContextProvider>
+        </FilterProvider>
       </TodoProvider>
     </SettingsProvider>
   );

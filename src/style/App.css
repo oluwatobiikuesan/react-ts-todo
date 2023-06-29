@@ -41,7 +41,11 @@ body{
 .Button:active{
   transform: scale(0.95);
 }
-
+input, textarea{
+  padding: 10px;
+  border: none;
+  border-bottom: 5px solid var(--accentclr);
+}
 .Sidebox-button{
   justify-self: center;
   align-self: center;

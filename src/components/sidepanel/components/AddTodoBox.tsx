@@ -2,6 +2,7 @@
 import React, {FC, MouseEventHandler,useRef, useEffect, useState, useContext, MutableRefObject} from 'react';
 import Button from '../../shared/Button';
 import Select from 'react-select';
+import "/Developement/react-ts-todo/src/style/components_style/Sidepanel.css";
 import { TodoContext } from '../../../context/TodoContext';
 import { IImportance, IMPORTANCE_GRADES } from '../../../util/Importance';
 import Radio from './Radio';

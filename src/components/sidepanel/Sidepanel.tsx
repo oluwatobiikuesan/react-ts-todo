@@ -26,7 +26,6 @@ const Sidepanel : FC<ISidePanel> = ({isVisible, setVisible}) =>{
             <h1 className="Page-title">Todo app
                 <button className="Close-sidepanel-button" onClick={()=>{setVisible(false);}}>Close
             </button></h1>
-            
             <AddTodoBox />
             <FilterBox />
             <SummaryBox />

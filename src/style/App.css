@@ -16,6 +16,7 @@ body{
 
 .App{
   background-color: var(--main-background-color);
+  --accentclr:#00948460;
   color: var(--text-color);
 
 
@@ -27,14 +28,18 @@ body{
 }
 
 .Button{
-  font-size: 24px;
-  border-radius: 12px;
+  font-size: 19px;
+  border-radius: 5px;
   cursor: pointer;
+  border: none;
+  font-family: Arial, Helvetica, sans-serif;
   padding: 4px 12px;
 }
-
+.Button:hover{
+  background-color: var(--accentclr);
+}
 .Button:active{
-  transform: scale(.97);
+  transform: scale(0.95);
 }
 
 .Sidebox-button{
